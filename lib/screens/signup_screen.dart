@@ -249,6 +249,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   controller: _confirmPasswordController,
                   obscureText: _obscureConfirmPassword,
                   textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (_) {
+                    if (!_isSubmitting) {
+                      _createAccount();
+                    }
+                  },
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     prefixIcon: const Icon(Icons.lock_reset_outlined),
@@ -272,9 +277,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _isFormValid && !_isSubmitting
-                      ? _createAccount
-                      : null,
+                  onPressed: !_isSubmitting ? _createAccount : null,
                   child: _isSubmitting
                       ? const SizedBox(
                           width: 20,
